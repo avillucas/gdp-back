@@ -1,0 +1,61 @@
+networks:
+  app-network:
+
+volumes:
+  app-data:
+  mdb:
+    driver: local
+
+services:
+  webserver:
+    image: nginx:1.21.6-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "5173:5173"
+    volumes:
+      - ./:/var/www
+      - .docker/nginx:/etc/nginx/conf.d
+    networks:
+      app-network:
+
+  backend:
+    build:
+      context: .docker/php
+      dockerfile: dockerfile
+    container_name: backend
+    volumes:
+      - ./:/var/www
+      - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      app-network:
+
+  mariadb:
+    image: mariadb:10
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # Create new user (This user only has access to the new database)
+      MYSQL_USER: gdp2
+      MYSQL_PASSWORD: gdp2
+      # Create New Database
+      MYSQL_DATABASE: gdp2
+    volumes:
+      # Store database data into a Volume
+      - mdb:/var/lib/mysql
+    ports:
+      - 3307:3306
+    networks:
+      app-network:
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 8091:80
+    environment:
+      PMA_HOST: mariadb
+    depends_on:
+      - mariadb
+    networks:
+      app-network:
