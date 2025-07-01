@@ -7,6 +7,6 @@ Route::controller(NoticeController::class)->prefix('notice')->group(function(){
     Route::get('/add', 'create')->name('notice.create');
     Route::post('/add', 'store')->name('notice.store');
     Route::get('/edit/{notice}', 'edit')->name('notice.edit');
-    Route::post('/update', 'update')->name('notice.update');
+    Route::post('/update/{notice}', 'update')->name('notice.update');
     Route::post('/destroy/{notice}', 'destroy')->name('notice.destroy');
 });

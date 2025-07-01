@@ -96,13 +96,14 @@ class NoticeController extends Controller
             'link' => 'url',
             'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:5120'
         ]);
+        $data = $request->all();
         if ($request->hasFile('image')) {
             $fileName = time() . '_' . $request->image->getClientOriginalName();
             $filePath = $request->file('image')->storeAs('uploads', $fileName);
             $request->image->move(public_path('uploads'), $fileName);
-            $notice->image =  $filePath;
+            $data['image'] =  $filePath;
         }
-        $notice->update($request->all());
+        $notice->update($data);
         return redirect()->route('notice.index')
             ->with('success', 'Noticia actualizada correctamente');
     }

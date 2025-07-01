@@ -25,7 +25,7 @@
 </div>
 @endif
 <div class="row">
-    <form action="{{ route('notice.update'), $notice->id }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('notice.update', $notice->id )}}" method="POST" enctype="multipart/form-data">
 
         @csrf
         <div class="col-lg-6">
