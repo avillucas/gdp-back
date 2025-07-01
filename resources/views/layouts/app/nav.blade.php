@@ -5,14 +5,15 @@
         </a>
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Pages
+                Entidades
             </li>
             <li class="sidebar-item active">
                 <a class="sidebar-link" href="#">
                     <i class="fa fa-house"></i>
-                    <span class="align-middle">Dashboards</span>
+                    <span class="align-middle">Novedades</span>
                 </a>
             </li>
+            <!--
             <li class="sidebar-item">
                 <a data-bs-target="#analytics" data-bs-toggle="collapse" class="sidebar-link collapsed" aria-expanded="false">
                     <i class="fa-solid fa-chart-simple"></i>
@@ -120,6 +121,7 @@
                                 class="sidebar-badge badge bg-primary">Pro</span></a></li>
                 </ul>
             </li>
+-->
         </ul>
     </div>
 </nav>

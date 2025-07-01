@@ -1,8 +1,7 @@
 @extends('layouts.plantillabase')
 
 @section('title','Home')
-@section('h-title','Blank Page')
-@section('card-title','Empty card')
+@section('h-title','Bienvenido al administrador de guardianes de patitas')
 
 @section('content')
     @if (session('status'))
@@ -10,6 +9,5 @@
             {{ session('status') }}
         </div>
     @endif
-
-    {{ __('You are logged in!') }}
+    {{ __('Desde este administrador puedes gestionar los contenidos del sitio web ') }}
 @endsection
