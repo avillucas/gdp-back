@@ -20,10 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('v1/users', UserController::class)
-    ->only(['index', 'show'])
-    ->middleware('auth:sanctum');
-Route::post('v1/login', [
-    LoginController::class,
-    'login'
-]);
+Route::apiResource('v1/users', UserController::class) ->only(['index', 'show'])->middleware('auth:sanctum');
+
+Route::post('v1/login', [  LoginController::class, 'login']);
