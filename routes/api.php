@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\LoginController;
-use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\NoticeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('v1/users', UserController::class)
-    ->only(['index', 'show'])
-    ->middleware('auth:sanctum');
-Route::post('v1/login', [
-    LoginController::class,
-    'login'
-]);
+
+Route::apiResource('v1/notices', NoticeController::class) ->only(['index']);
+
+Route::post('v1/login', [  LoginController::class, 'login']);

@@ -24,7 +24,7 @@ class User extends Authenticatable
             $model->uuid = (string) Uuid::generate();
         });
     }
-    
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -34,5 +34,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Usertype::class);
     }
-    
+
 }
