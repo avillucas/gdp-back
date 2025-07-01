@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class NoticeController extends Controller
 {
 
-        /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -25,7 +25,8 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        return view('notice.list');
+        $notices = Notice::all();
+        return view('notice.list', compact('notices'));
     }
 
     /**
@@ -47,6 +48,9 @@ class NoticeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'title' => 'required|max:255',
+            'subtitle' => 'max:255',
+            'url' => 'url',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:5120'
         ]);
         $notice = new Notice();
@@ -54,14 +58,14 @@ class NoticeController extends Controller
             $fileName = time() . '_' . $request->image->getClientOriginalName();
             $filePath = $request->file('image')->storeAs('uploads', $fileName);
             $request->image->move(public_path('uploads'), $fileName);
-            $notice->image = '/storage/' . $filePath;
+            $notice->image =  $filePath;
         }
         $notice->title = $request->title;
         $notice->subtitle = $request->subtitle;
-        $notice->link = $request->link;
+        $notice->url = $request->url;
         $notice->save();
-        return back()
-            ->with('success', 'Notice has been created.')
+        return redirect()->route('notice.index')
+            ->with('success', 'La noticia fue creada .')
             ->with('image', $fileName);
     }
 
@@ -74,7 +78,7 @@ class NoticeController extends Controller
      */
     public function edit(Notice $notice)
     {
-             return view('notice.edit');
+        return view('notice.edit', compact('notice'));
     }
 
     /**
@@ -86,7 +90,21 @@ class NoticeController extends Controller
      */
     public function update(Request $request, Notice $notice)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'subtitle' => 'max:255',
+            'link' => 'url',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:5120'
+        ]);
+        if ($request->hasFile('image')) {
+            $fileName = time() . '_' . $request->image->getClientOriginalName();
+            $filePath = $request->file('image')->storeAs('uploads', $fileName);
+            $request->image->move(public_path('uploads'), $fileName);
+            $notice->image =  $filePath;
+        }
+        $notice->update($request->all());
+        return redirect()->route('notice.index')
+            ->with('success', 'Noticia actualizada correctamente');
     }
 
     /**
@@ -97,6 +115,8 @@ class NoticeController extends Controller
      */
     public function destroy(Notice $notice)
     {
-        //
+        $notice->delete();
+        return redirect()->route('notice.index')
+            ->with('success', 'La noticia se borro correctamente');
     }
 }

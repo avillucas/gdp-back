@@ -11,7 +11,7 @@
 @endif
 @if($message = Session::get('image'))
 <div class="alert alert-success">
-    <img src="uploads/{{ Session::get('image') }}">
+    <img src="uploads/{{ asset(Session::get('image')) }}">
 </div>
 @endif
 
@@ -38,7 +38,7 @@
         </div>
         <div class="col-lg-6">
             <label class="form-label" for="url">Enlace:</label>
-            <input type="text" name="url" id="url" class="form-control">
+            <input type="url" name="url" id="url" class="form-control">
         </div>
         <div class="col-lg-6">
             <label class="form-label" for="image">Imagen principal:</label>

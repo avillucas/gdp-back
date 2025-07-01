@@ -8,9 +8,9 @@
                 Entidades
             </li>
             <li class="sidebar-item active">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{ route('notice.index') }}">
                     <i class="fa fa-house"></i>
-                    <span class="align-middle">Novedades</span>
+                    <span class="align-middle">Noticias</span>
                 </a>
             </li>
             <!--
